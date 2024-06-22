@@ -14,11 +14,10 @@ public class Stats : MonoBehaviour
 
     public Stats (int level, float maxhealth, float attack, float deffense, float spirit)
     {
-        this.level=level;
-        this.maxHealth=maxHealth;
-        this.health=maxHealth;
-
+        this.level = level;
+        this.maxHealth = maxhealth;
         this.attack = attack;
+        this.health = maxHealth;
         this.deffense=deffense;
         this.spirit=spirit;
 

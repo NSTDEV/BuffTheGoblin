@@ -7,7 +7,7 @@ public abstract class Fighter : MonoBehaviour
   public string idName;
   public StatusPanel statusPanel;
   public CombatManager combatManager;
-  public Stats stats;
+  protected Stats stats;
   protected virtual void Start()
   {
     this.statusPanel.SetStats(this.idName, this.stats);

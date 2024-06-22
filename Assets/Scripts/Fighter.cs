@@ -8,14 +8,24 @@ public abstract class Fighter : MonoBehaviour
   public StatusPanel statusPanel;
   public CombatManager combatManager;
   protected Stats stats;
+  protected Skill [] skills; // habilidades como un array
+  public bool isAlive // comprueba si esta vivo
+  {
+    get => this.stats.health > 0;
+  }
   protected virtual void Start()
   {
     this.statusPanel.SetStats(this.idName, this.stats);
+    this.skills = this.GetComponentsInChildren<Skill>(); // la obtenemos de los componentes de los objetos hijos
   }
   public void ModifyHealth (float amount)
   {
     this.stats.health = Mathf.Clamp(this.stats.health + amount, 0f, this.stats.maxHealth);
     this.statusPanel.SetHealth(this.stats.health, this.stats.maxHealth);
+  }
+  public Stats GetCurrentStats()
+  {
+    return this.stats;
   }
   
   public abstract void InitTurn();

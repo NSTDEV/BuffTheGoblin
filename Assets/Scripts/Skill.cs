@@ -14,20 +14,20 @@ public abstract class Skill : MonoBehaviour
    
 
    /*------------Instancia el efecto de la habilidad-----------*/
-   private void Animate()
+   /*private void Animate()
    {
 
     var go = Instantiate (this.effectPrfb, this.receiver.transform.position, Quaternion.identity);
     Destroy(go, this.animationDuration);
 
-   }
+   }*/
    public void Run()
    {
     if (this.selfInflicted) // si la aplicamos a nosotros mismos, es verdadera
     {
         this.receiver = this.emitter; //la recibe el emisor, el receptor es el emisor
     }
-    this.Animate(); //anima la habilidad
+    //this.Animate(); //anima la habilidad
     this.OnRun(); 
    }
    public void SetEmitterAndReceiver(Fighter _emitter, Fighter _receiver)

@@ -345,7 +345,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 184089981}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1324908031}
+        m_TargetAssemblyTypeName: PlayerFighter, Assembly-CSharp
+        m_MethodName: ExecuteSkill
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &184089981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,7 +782,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 722862196}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1324908031}
+        m_TargetAssemblyTypeName: PlayerFighter, Assembly-CSharp
+        m_MethodName: ExecuteSkill
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &722862196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,7 +1641,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1497809985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1324908031}
+        m_TargetAssemblyTypeName: PlayerFighter, Assembly-CSharp
+        m_MethodName: ExecuteSkill
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1497809985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2116,7 +2152,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2018561984}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1324908031}
+        m_TargetAssemblyTypeName: PlayerFighter, Assembly-CSharp
+        m_MethodName: ExecuteSkill
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2018561984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,7 +2350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec505db03f0cfd4b8ccdb6e97b5814b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fighters: []
+  fighters:
+  - {fileID: 1324908031}
+  - {fileID: 2044338394}
 --- !u!1 &2137225279
 GameObject:
   m_ObjectHideFlags: 0

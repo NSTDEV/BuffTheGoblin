@@ -18,4 +18,20 @@ public class PlayerFighter : Fighter
             this.skillPanel.ConfigureButtons(i, this.skills[i].skillName); //configuramos los botones con el nombre de skill
         }
     }
+
+    ///<summary>
+    ///</summary>
+    ///<param name = "index" ></param>
+    public void ExecuteSkill (int index)
+    {
+        this.skillPanel.Hide();
+        Skill skill = this.skills[index];
+
+        skill.SetEmitterAndReceiver
+        (
+            this, this.combatManager.GetOpposingFighter()
+        );
+        this.combatManager.OnFighterSkill(skill);
+
+    }
 }

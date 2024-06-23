@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Stats
 {
     public float health;
     public float maxHealth;
@@ -12,14 +12,14 @@ public class Stats : MonoBehaviour
     public float deffense;
     public float spirit;
 
-    public Stats (int level, float maxhealth, float attack, float deffense, float spirit)
+    public Stats (int _level, float _maxhealth, float _attack, float _deffense, float _spirit)
     {
-        this.level = level;
-        this.maxHealth = maxhealth;
-        this.attack = attack;
-        this.health = maxHealth;
-        this.deffense=deffense;
-        this.spirit=spirit;
+        this.level = _level;
+        this.maxHealth = _maxhealth;
+        this.attack = _attack;
+        this.health = _maxhealth;
+        this.deffense=_deffense;
+        this.spirit=_spirit;
 
     }
     public Stats Clone()

@@ -4,36 +4,33 @@ using UnityEngine.UI;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    GameObject placeHolder = null;
+    public GameObject placeHolder = null;
 
     public Transform parentToReturnTo = null;
     public Transform placeHolderParent = null;
     public enum Slot { Inventory, Chest, Merchant };
-    public Slot typeOfItem = Slot.Inventory;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         placeHolder = new GameObject();
-        placeHolder.transform.SetParent(this.transform.parent);
+        placeHolder.transform.SetParent(transform.parent);
 
-        LayoutElement le = placeHolder.AddComponent<LayoutElement>();
-        le.preferredWidth = this.GetComponent<LayoutElement>().preferredWidth;
-        le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
-        le.flexibleWidth = 0;
-        le.flexibleHeight = 0;
+        RectTransform originalRect = GetComponent<RectTransform>();
+        RectTransform placeholderRect = placeHolder.AddComponent<RectTransform>();
+        placeholderRect.sizeDelta = originalRect.sizeDelta;
 
-        placeHolder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
+        placeHolder.transform.SetSiblingIndex(transform.GetSiblingIndex());
 
-        parentToReturnTo = this.transform.parent;
+        parentToReturnTo = transform.parent;
         placeHolderParent = parentToReturnTo;
-        this.transform.SetParent(this.transform.parent.parent);
+        transform.SetParent(transform.parent.parent);
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        this.transform.position = eventData.position;
+        transform.position = eventData.position;
 
         if (placeHolder.transform.parent != placeHolderParent)
             placeHolder.transform.SetParent(placeHolderParent);
@@ -42,7 +39,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         for (int i = 0; i < placeHolderParent.childCount; i++)
         {
-            if (this.transform.position.x < placeHolderParent.GetChild(i).position.x)
+            if (transform.position.x < placeHolderParent.GetChild(i).position.x)
             {
                 newSiblingIndex = i;
 
@@ -57,10 +54,10 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        this.transform.SetParent(parentToReturnTo);
+        transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-        this.transform.SetSiblingIndex(placeHolder.transform.GetSiblingIndex());
+        transform.SetSiblingIndex(placeHolder.transform.GetSiblingIndex());
         Destroy(placeHolder);
     }
 }

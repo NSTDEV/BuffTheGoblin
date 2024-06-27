@@ -19,34 +19,41 @@ public class CardDisplay : MonoBehaviour
 
     void Start()
     {
-
         if (card != null)
         {
-            nameText.text = card.cardName;
-            typeText.text = card.type;
-            statText.text = card.stat;
-
-            artworkImage.sprite = card.artwork;
-
-            //Asignar color basado en el tipo de carta
-            if (cardTypeColors.ContainsKey(card.type))
-            {
-                string hexColor = cardTypeColors[card.type];
-                Color typeColor;
-
-                if (ColorUtility.TryParseHtmlString(hexColor, out typeColor))
-                {
-                    typeText.color = typeColor;
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Card type not found in color dictionary");
-            }
+            PrintCard();
         }
         else
         {
             Debug.LogError("Card is not assigned in the inspector");
+        }
+    }
+
+    public void PrintCard()
+    {
+        nameText.text = card.cardName.ToUpper();
+        typeText.text = card.type.ToUpper();
+        statText.text = card.stat;
+
+        artworkImage.sprite = card.artwork;
+        DyeColor();
+    }
+
+    public void DyeColor()
+    { //Asignar color basado en el tipo de carta
+        if (cardTypeColors.ContainsKey(card.type))
+        {
+            string hexColor = cardTypeColors[card.type];
+            Color typeColor;
+
+            if (ColorUtility.TryParseHtmlString(hexColor, out typeColor))
+            {
+                typeText.color = typeColor;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Card type not found in color dictionary");
         }
     }
 }

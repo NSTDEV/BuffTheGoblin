@@ -13,7 +13,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         if (d != null)
         {
-            d.placeHolderParent = this.transform;
+            d.placeHolderParent = transform;
         }
     }
 
@@ -23,7 +23,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             return;
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if (d != null && d.placeHolderParent == this.transform)
+        if (d != null && d.placeHolderParent == transform)
         {
             d.placeHolderParent = d.parentToReturnTo;
         }
@@ -35,7 +35,20 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
         if (d != null)
         {
-            d.parentToReturnTo = this.transform;
+            d.parentToReturnTo = transform;
+
+            // Obtener el componente CardDisplay de la carta
+            CardDisplay cardDisplay = d.GetComponent<CardDisplay>();
+            if (cardDisplay != null && cardDisplay.card != null)
+            {
+                // Aquí deberías asegurarte de que cardDisplay.card sea del tipo correcto
+                Debug.Log("Carta " + cardDisplay.card.name + " soltada en: " + gameObject.name);
+                GameManager.instance.AddPlayedCard(cardDisplay.card);
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró CardDisplay o la carta no está asignada correctamente.");
+            }
         }
     }
 }

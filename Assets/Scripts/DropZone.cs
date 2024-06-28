@@ -43,7 +43,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             {
                 // Aquí deberías asegurarte de que cardDisplay.card sea del tipo correcto
                 Debug.Log("Carta " + cardDisplay.card.name + " soltada en: " + gameObject.name);
-                GameManager.instance.AddPlayedCard(cardDisplay.card);
+                GameManager.instance.AddPlayedCard(cardDisplay);
             }
             else
             {

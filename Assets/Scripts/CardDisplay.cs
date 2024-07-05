@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.EventSystems; // Asegúrate de tener esta línea
 
 public class CardDisplay : MonoBehaviour
 {
@@ -40,7 +41,8 @@ public class CardDisplay : MonoBehaviour
     }
 
     public void DyeColor()
-    { //Asignar color basado en el tipo de carta
+    {
+        // Asignar color basado en el tipo de carta
         if (cardTypeColors.ContainsKey(card.type))
         {
             string hexColor = cardTypeColors[card.type];

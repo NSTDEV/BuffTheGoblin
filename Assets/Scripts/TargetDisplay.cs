@@ -10,6 +10,7 @@ public class TargetDisplay : MonoBehaviour
 
     public TMP_Text nameText, lifeText;
     public Image artworkImage;
+    public float damage;
     private Animator animator;
 
     void Start()
@@ -64,7 +65,7 @@ public class TargetDisplay : MonoBehaviour
             StartCoroutine(animationTarget(1.2f));
         }
     }
-
+    
     IEnumerator animationTarget(float seconds)
     {
         yield return new WaitForSeconds(seconds);

@@ -1,54 +1,20 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class DropZone : MonoBehaviour, IPointerClickHandler
 {
-    public Draggable.Slot typeOfItem = Draggable.Slot.Inventory;
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null)
-            return;
+        GameObject clickedObject = eventData.pointerPress.gameObject;
+        CardDisplay cardDisplay = clickedObject.GetComponentInChildren<CardDisplay>();
 
-        Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if (d != null)
+        if (cardDisplay != null && cardDisplay.card != null)
         {
-            d.placeHolderParent = transform;
-        }
-    }
+            Debug.Log("Tipo: " + cardDisplay.card.type);
+            Debug.Log("Estadística: " + cardDisplay.card.stat);
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (eventData.pointerDrag == null)
-            return;
-
-        Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if (d != null && d.placeHolderParent == transform)
-        {
-            d.placeHolderParent = d.parentToReturnTo;
-        }
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-
-        if (d != null)
-        {
-            d.parentToReturnTo = transform;
-
-            // Obtener el componente CardDisplay de la carta
-            CardDisplay cardDisplay = d.GetComponent<CardDisplay>();
-            if (cardDisplay != null && cardDisplay.card != null)
-            {
-                // Aquí deberías asegurarte de que cardDisplay.card sea del tipo correcto
-                Debug.Log("Carta " + cardDisplay.card.name + " soltada en: " + gameObject.name);
-                GameManager.instance.AddPlayedCard(cardDisplay);
-            }
-            else
-            {
-                Debug.LogWarning("No se encontró CardDisplay o la carta no está asignada correctamente.");
-            }
+            GameManager.instance.SelectCard(cardDisplay.card);
+            GameManager.instance.AddPlayedCard(cardDisplay);
         }
     }
 }

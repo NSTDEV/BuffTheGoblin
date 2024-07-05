@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 139cbb18439e41b459061c6937ec972a, type: 3}
-  m_Name: Rat
+  m_Name: Gnomes
   m_EditorClassIdentifier: 
-  targetName: Rat
-  maxLife: 20
-  currentLife: 20
-  damage: 3
-  artwork: {fileID: 21300000, guid: f80ccea8cf561234aa4ae54f5f3785bc, type: 3}
+  targetName: Misterioso
+  maxLife: 45
+  currentLife: 8
+  damage: 8
+  artwork: {fileID: 21300000, guid: 6f717a0c11614484ab4d0532159db188, type: 3}

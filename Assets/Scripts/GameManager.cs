@@ -4,55 +4,88 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public TargetDisplay enemy, player;
 
-    private List<CardDisplay> playedCards = new List<CardDisplay>(); // Lista de cartas jugadas en este turno
+    public List<CardDisplay> playedCards = new List<CardDisplay>(); // Lista de cartas jugadas en este turno
+
+    public TargetDisplay enemyTarget;
+    public TargetDisplay playerTarget;
+
+    public CardGenerator cardGenerator; // Referencia al generador de cartas
+    public Transform cardsParent; // Padre donde se instancian las cartas
+    public GameObject cardDisplayPrefab; // Prefab de la carta a instanciar 
+    private Card selectedCard;
+
+    private List<CardDisplay> currentCards = new List<CardDisplay>(); // Lista de cartas actuales en la zona de drops
+
+    private int selectedCardsCount = 0;
+    private const int maxSelectableCards = 2;
 
     void Awake()
     {
         instance = this;
 
-        if (enemy == null)
+        if (cardGenerator == null)
         {
-            Debug.LogError("Enemy target display is not assigned.");
+            Debug.LogError("CardGenerator no asignado en el GameManager.");
         }
-        if (instance.player == null)
+        if (cardDisplayPrefab == null)
         {
-            Debug.LogError("Player target display is not assigned.");
+            Debug.LogError("CardDisplayPrefab no asignado en el GameManager.");
+        }
+        if (cardsParent == null)
+        {
+            Debug.LogError("CardsParent no asignado en el GameManager.");
         }
     }
 
-    //Método para añadir una carta jugada
-    public void AddPlayedCard(CardDisplay cardD)
+    public void SelectCard(Card card)
     {
-        if (cardD != null)
+        if (selectedCardsCount < maxSelectableCards)
         {
-            playedCards.Add(cardD);
+            selectedCard = card;
+            selectedCardsCount++;
+            Debug.Log("Carta seleccionada: " + card.cardName);
         }
         else
         {
-            Debug.LogWarning("La carta pasada es nula");
+            Debug.LogWarning("No se pueden seleccionar más de " + maxSelectableCards + " cartas por turno.");
         }
     }
 
-    //Método para finalizar el turno y aplicar el daño acumulado al enemigo
+    // Método para añadir una carta jugada
+    public void AddPlayedCard(CardDisplay cardDisplay)
+    {
+        if (playedCards.Count < maxSelectableCards)
+        {
+            playedCards.Add(cardDisplay);
+            Debug.Log("Carta añadida a la lista de jugadas: " + cardDisplay.card.cardName + " con estadística " + cardDisplay.card.statN);
+        }
+    }
+
+    // Método para finalizar el turno y aplicar el daño acumulado al enemigo
     public void EndTurn()
     {
+        Debug.Log("Finalizando turno...");
         float totalDamage = 0f;
         float totalHealing = 0f;
 
         foreach (CardDisplay cardD in playedCards)
         {
+            float cardStat = cardD.card.statN;
+
             switch (cardD.card.type)
             {
                 case "DAÑA":
-                    totalDamage += cardD.card.statN;
+                    totalDamage += cardStat;
+                    Debug.Log("Añadido daño: " + cardStat + ". Daño total: " + totalDamage);
                     break;
                 case "CURA":
-                    totalHealing += cardD.card.statN;
+                    totalHealing += cardStat;
+                    Debug.Log("Añadida cura: " + cardStat + ". Cura total: " + totalHealing);
                     break;
                 case "CUBRE":
-                    totalDamage -= cardD.card.statN * 1.5f;
+                    totalDamage -= cardStat * 1.5f;
+                    Debug.Log("Reducido daño: " + cardStat + ". Daño total: " + totalDamage);
                     break;
                 default:
                     Debug.LogWarning("Tipo de carta no reconocido: " + cardD.card.type);
@@ -60,15 +93,53 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //Aplicar el daño total al enemigo y curar al jugador
-        enemy.TakeDamage(totalDamage);
-        player.Heal(totalHealing);
+        // Aplicar el daño total al enemigo y curar al jugador
+        Debug.Log("Aplicando daño total al enemigo: " + totalDamage);
+        enemyTarget.TakeDamage(totalDamage);
 
-        foreach (CardDisplay cardD in playedCards)
-        {
-            Destroy(cardD.gameObject);
-        }
+        Debug.Log("Aplicando daño total al jugador: " + enemyTarget.target.damage);
+        playerTarget.TakeDamage(enemyTarget.target.damage);
 
+        Debug.Log("Aplicando cura total al jugador: " + totalHealing);
+        playerTarget.Heal(totalHealing);
+
+        // Limpiar la lista de cartas jugadas
         playedCards.Clear();
+
+        // Resetear la cuenta de cartas seleccionadas
+        selectedCardsCount = 0;
+
+        // Generar y mostrar 3 nuevas cartas en la zona de drops
+        GenerateNewCards();
+    }
+
+    // Método para generar 3 nuevas cartas y mostrarlas en la zona de drops
+    public void GenerateNewCards()
+    {
+        Debug.Log("Generando nuevas cartas...");
+        // Eliminar las cartas actuales
+        foreach (CardDisplay card in currentCards)
+        {
+            Destroy(card.gameObject);
+        }
+        currentCards.Clear();
+
+        // Generar y mostrar 3 nuevas cartas
+        for (int i = 0; i < 3; i++)
+        {
+            Card newCard = cardGenerator.GenerateRandomCard();
+            if (newCard != null && cardDisplayPrefab != null)
+            {
+                GameObject newCardObj = Instantiate(cardDisplayPrefab.gameObject, cardsParent);
+                CardDisplay newCardDisplay = newCardObj.GetComponent<CardDisplay>();
+                newCardDisplay.card = newCard;
+                newCardDisplay.PrintCard(); // Actualizar la interfaz con los datos de la nueva carta
+                currentCards.Add(newCardDisplay);
+            }
+            else
+            {
+                Debug.LogWarning("No se pudo generar una nueva carta o cardDisplayPrefab no está asignado correctamente.");
+            }
+        }
     }
 }

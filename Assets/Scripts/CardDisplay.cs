@@ -18,8 +18,11 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         { "CURA", new Color(0.41f, 0.62f, 0.22f) }  // Verde
     };
 
+    private Vector3 originalPosition; // Guarda la posición original del objeto
+
     void Start()
     {
+        originalPosition = transform.position; // Guarda la posición inicial al inicio
         if (card != null)
         {
             PrintCard();
@@ -59,6 +62,11 @@ public class CardDisplay : MonoBehaviour, IPointerClickHandler
         Debug.Log("Carta seleccionada: " + card.cardName);
 
         // Llama a la función en GameManager para agregar la carta jugada
+        // Llama a la función en GameManager para agregar la carta jugada
         GameManager.instance.AddPlayedCard(card);
+
+        // Desplazar el objeto hacia arriba 50 pixeles
+        Vector3 newPosition = transform.position + Vector3.up * 50f;
+        transform.position = newPosition;            
     }
 }

@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Finalizando turno...");
         float totalDamage = 0f;
         float totalHealing = 0f;
+        float enemyDamageInit = enemyTarget.damage;
 
         foreach (Card cardD in playedCards)
         {
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
         playedCards.Clear();
         selectedCardsCount = 0;
 
+        enemyTarget.damage = enemyDamageInit;
         // Generar y mostrar 3 nuevas cartas en la zona de drops
         GenerateNewCards();
     }

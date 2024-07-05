@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
    public void CambiarEscena(string nombre){
-
     SceneManager.LoadScene(nombre);
-
    }
 
    public void CerrarJuego(){

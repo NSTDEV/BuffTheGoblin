@@ -25,7 +25,7 @@ public class TargetDisplay : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Card is not assigned in the inspector");
+            Debug.LogError("Target is not assigned in the inspector");
         }
     }
 
@@ -52,7 +52,6 @@ public class TargetDisplay : MonoBehaviour
         if (target.currentLife > target.maxLife) target.currentLife = target.maxLife; // Asegura que la vida no exceda el máximo
 
         PrintTarget();
-
         Debug.Log("Vida total de Buff: " + target.currentLife);
     }
 

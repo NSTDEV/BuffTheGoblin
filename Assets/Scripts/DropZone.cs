@@ -1,20 +1,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DropZone : MonoBehaviour, IPointerClickHandler
+public class DropZone : MonoBehaviour//, IPointerClickHandler
 {
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        GameObject clickedObject = eventData.pointerPress.gameObject;
-        CardDisplay cardDisplay = clickedObject.GetComponentInChildren<CardDisplay>();
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+      //  Card cardDisplay = GetComponentInChildren<Card>();
 
-        if (cardDisplay != null && cardDisplay.card != null)
-        {
-            Debug.Log("Tipo: " + cardDisplay.card.type);
-            Debug.Log("Estadística: " + cardDisplay.card.stat);
+        //if (cardDisplay != null)
+        //{
+            // Aquí puedes usar cardDisplay para lo que necesites
+          //  Debug.Log("Carta seleccionada: " + card.nameCard);
 
-            GameManager.instance.SelectCard(cardDisplay.card);
-            GameManager.instance.AddPlayedCard(cardDisplay);
-        }
-    }
+            // Llama a la función en GameManager para agregar la carta jugada
+          //  GameManager.instance.AddPlayedCard(cardDisplay);
+        //}
+        //else
+        //{
+          //  Debug.LogWarning("No se encontró el componente CardDisplay en la carta.");
+        //}
+    //}
 }

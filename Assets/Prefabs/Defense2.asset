@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: ESCUDO GORGONA
   type: CUBRE
   stat: IV
-  artwork: {fileID: 21300000, guid: 5f372525667282f4a96103c2345d20e0, type: 3}
+  artwork: {fileID: 21300000, guid: bf19f26f5c81b784c9da10e30072ea3a, type: 3}
   statN: 4
